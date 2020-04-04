@@ -2,33 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using brendan_project1;
-using Microsoft.Extensions.Logging;
 
 namespace brendan_project1.Controllers
 {
-    public class CustomersController : Controller
+    public class StoreLocsController : Controller
     {
         private readonly RestaurantAfrikContext _context;
-        private readonly ILogger<CustomersController> logger;
-        public CustomersController(RestaurantAfrikContext context)
+
+        public StoreLocsController(RestaurantAfrikContext context)
         {
             _context = context;
-            this.logger = logger;
         }
-        //public IActionResult Search();
 
-
-        // GET: Customers
+        // GET: StoreLocs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            return View(await _context.StoreLoc.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+        // GET: StoreLocs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,37 +32,39 @@ namespace brendan_project1.Controllers
                 return NotFound();
             }
 
-            var customers = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customers == null)
+            var storeLoc = await _context.StoreLoc
+                .FirstOrDefaultAsync(m => m.StoreId == id);
+            if (storeLoc == null)
             {
                 return NotFound();
             }
 
-            return View(customers);
+            return View(storeLoc);
         }
 
-        // GET: Customers/Create
+        // GET: StoreLocs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-     
+        // POST: StoreLocs/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,FirstName,LastName,Address,Phone,City,State,Zipcode")] Customers customers)
+        public async Task<IActionResult> Create([Bind("StoreId,Name,Phone,Email,Street,City,State,ZipCode")] StoreLoc storeLoc)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customers);
+                _context.Add(storeLoc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customers);
+            return View(storeLoc);
         }
 
-        // GET: Customers/Edit/5
+        // GET: StoreLocs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +72,22 @@ namespace brendan_project1.Controllers
                 return NotFound();
             }
 
-            var customers = await _context.Customers.FindAsync(id);
-            if (customers == null)
+            var storeLoc = await _context.StoreLoc.FindAsync(id);
+            if (storeLoc == null)
             {
                 return NotFound();
             }
-            return View(customers);
+            return View(storeLoc);
         }
 
-        // POST: Customers/Edit/5
+        // POST: StoreLocs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FirstName,LastName,Address,Phone,City,State,Zipcode")] Customers customers)
+        public async Task<IActionResult> Edit(int id, [Bind("StoreId,Name,Phone,Email,Street,City,State,ZipCode")] StoreLoc storeLoc)
         {
-            if (id != customers.CustomerId)
+            if (id != storeLoc.StoreId)
             {
                 return NotFound();
             }
@@ -98,12 +96,12 @@ namespace brendan_project1.Controllers
             {
                 try
                 {
-                    _context.Update(customers);
+                    _context.Update(storeLoc);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomersExists(customers.CustomerId))
+                    if (!StoreLocExists(storeLoc.StoreId))
                     {
                         return NotFound();
                     }
@@ -114,10 +112,10 @@ namespace brendan_project1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customers);
+            return View(storeLoc);
         }
 
-        // GET: Customers/Delete/5
+        // GET: StoreLocs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +123,30 @@ namespace brendan_project1.Controllers
                 return NotFound();
             }
 
-            var customers = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customers == null)
+            var storeLoc = await _context.StoreLoc
+                .FirstOrDefaultAsync(m => m.StoreId == id);
+            if (storeLoc == null)
             {
                 return NotFound();
             }
 
-            return View(customers);
+            return View(storeLoc);
         }
 
-        // POST: Customers/Delete/5
+        // POST: StoreLocs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customers = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customers);
+            var storeLoc = await _context.StoreLoc.FindAsync(id);
+            _context.StoreLoc.Remove(storeLoc);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomersExists(int id)
+        private bool StoreLocExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.StoreLoc.Any(e => e.StoreId == id);
         }
     }
 }

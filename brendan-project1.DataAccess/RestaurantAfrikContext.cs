@@ -20,9 +20,11 @@ namespace brendan_project1
         {
             var config = new ConfigurationBuilder()
                                    .SetBasePath(Directory.GetCurrentDirectory())
-                                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                                   .Build();
-            string conn = config.GetConnectionString("Default");
+                                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                                   
+            config.AddUserSecrets<RestaurantAfrikContext>();
+            var Configuration = config.Build();
+            string conn = Configuration["ConnectionStrings:RestaurantAfrikContext"];
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(conn);

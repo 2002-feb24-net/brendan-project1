@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using brendan_project1.DataAccess.Repositories;
+using brendan_project1.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,22 +11,43 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace brendan_project1
 {
     public class Startup
     {
+        public Startup(IWebHostEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RestaurantAfrikContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RestaurantAfrik")));
+            services.AddDbContext<RestaurantAfrikContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("RestaurantAfrikContext")));
+
+          /*  services.AddScoped<ICustomerRepo, CustomerRepo>();*/
+            //services.AddDbContext<RestaurantAfrikContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RestaurantAfrik")));
             services.AddControllersWithViews();
         }
 

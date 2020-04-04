@@ -74,6 +74,7 @@ namespace brendan_project1.Domain.Interfaces
       
        
         List<Customers> GetList();
+ 
     }
     
 }
