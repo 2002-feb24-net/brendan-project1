@@ -23,11 +23,9 @@ steps:
 # add sonar cloud prepare here
 
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'Project1'
-# dotnet build was here
+- script: |
+    dotnet build
+  displayName: 'dotnet build'
 
 # add sonarcloud analyse here
 
