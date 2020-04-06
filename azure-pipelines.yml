@@ -6,13 +6,65 @@
 trigger:
 - master
 
+pr: none
+
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: ls
-  displayName: 'Show working directory'
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo 'Showing directory contents'
+    ls
+  displayName: 'Show directory contents'
+
+# add sonar cloud prepare here
+
 
 - script: |
     dotnet build
   displayName: 'dotnet build'
+
+# add sonarcloud analyse here
+
+
+#add sonarcloud publish here
+
+
+
+# Want a sonar cloud analysis even if tests fail
+
+
+
+
+
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+
+#add azure web services here
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(7ed6b207-16fc-46c9-b696-4614091ffbf7)'
+    appType: 'webApp'
+    WebAppName: 'brendano'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+
+
+- script: dotnet test --logger trx
+  displayName: dotnet test
+
+# the default "condition" for every step is "succeeded()" - run this step if the previous step succeeded
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+
+  # have the build running agent running steps publish test build logs
