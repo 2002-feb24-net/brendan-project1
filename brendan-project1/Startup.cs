@@ -7,6 +7,7 @@ using brendan_project1.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,9 +46,14 @@ namespace brendan_project1
         {
             services.AddDbContext<RestaurantAfrikContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RestaurantAfrikContext")));
+            services.AddConnections();
+           
+            services.AddControllers().AddControllersAsServices();
 
-          /*  services.AddScoped<ICustomerRepo, CustomerRepo>();*/
-            //services.AddDbContext<RestaurantAfrikContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RestaurantAfrik")));
+            services.AddScoped<ICustomerRepo, CustomerRepo>();
+            services.AddScoped<IOrdersRepo, OrdersRepo>();
+            services.AddScoped<IStoreLocRepo, StoreLocRepo>();           
+
             services.AddControllersWithViews();
         }
 

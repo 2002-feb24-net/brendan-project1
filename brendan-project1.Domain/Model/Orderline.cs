@@ -12,11 +12,9 @@ namespace brendan_project1
         public int Orderid { get; set; }
         [Display(Name = "Quantity")]
         public int Qty { get; set; }
-        [ForeignKey("fid")]
-        public int Fid { get; set; }
-        public virtual Inventory P { get; set; }
 
-        public virtual Orders O { get; set; }
+
+
         public virtual Foods Food { get; set; }
         public virtual Orders Order { get; set; }
         public bool ValidateQuantity(int qty)

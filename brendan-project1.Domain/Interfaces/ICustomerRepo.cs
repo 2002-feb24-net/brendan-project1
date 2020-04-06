@@ -45,15 +45,7 @@ namespace brendan_project1.Domain.Interfaces
         /// </summary>
         /// <returns></returns>
         int NumberOfCustomers();
-      
-        /// <summary>
-        /// Adds customer to databse
-        /// </summary>
-        /// <param name="firstName">First name</param>
-        /// <param name="lastNumber">Last name</param>
-        /// <param phone="phoneNumber"></param>
-        
-        int AddCust(string firstName, string lastName, int phoneNumber);
+     
 
         /// <summary>
         /// Searches customers by given parameter/search mode
@@ -61,7 +53,7 @@ namespace brendan_project1.Domain.Interfaces
         /// <param name="mode">Search mode: 1 - By name, 2 - By username</param>
         /// <param name="search_param">name/username to search by</param>
         /// <returns></returns>
-        IEnumerable<Customers> SearchCust(int mode = 0, params string[] search_param);
+        IEnumerable<Customers> SearchCust( params string[] search_param);
 
         //returns -1 if customer name or id does not exist
         //returns the matching ID other wise

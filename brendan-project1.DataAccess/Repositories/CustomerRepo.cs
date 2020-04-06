@@ -10,7 +10,7 @@ namespace brendan_project1.DataAccess.Repositories
     public class CustomerRepo : ICustomerRepo
     {
         readonly RestaurantAfrikContext context = new RestaurantAfrikContext();
-        private string phoneNumber;
+     
 
         public void Remove(int id)
         {
@@ -45,26 +45,7 @@ namespace brendan_project1.DataAccess.Repositories
             return context.Customers.ToList().Count;
 
         }
-        public int AddCust(string firstName, string lastName, int phone)
-        {
-            var new_cust = new Customers
-            {
-                FirstName = firstName,
-                Phone = phoneNumber,
-                LastName = lastName,
-
-            };
-            try
-            {
-                context.Customers.Add(new_cust);
-                context.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                Console.WriteLine("First/username already exists");
-            }
-            return new_cust.CustomerId;
-        }
+        
         public List<Customers> GetList()
         {
             var listCustomerModel = context.Customers.ToList();
@@ -79,16 +60,11 @@ namespace brendan_project1.DataAccess.Repositories
         {
             throw new NotFiniteNumberException();
         }
-       
 
-
-
-
-
-
-        public IEnumerable<Customers> SearchCust(int mode = 0, params string[] search_param)
+        public IEnumerable<Customers> SearchCust( params string[] search_param)
         {
-            throw new NotImplementedException();
+            return context.Customers.Where(c => c.FirstName == search_param[0] && c.LastName == search_param[1]);
+            
         }
 
         //List<Customers> ICustomerRepo.GetList()

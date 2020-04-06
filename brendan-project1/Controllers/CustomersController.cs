@@ -7,25 +7,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using brendan_project1;
 using Microsoft.Extensions.Logging;
+using brendan_project1.Domain.Interfaces;
+
 
 namespace brendan_project1.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly RestaurantAfrikContext _context;
+        private readonly ICustomerRepo _customerRepo;
+        private readonly RestaurantAfrikContext _context=new RestaurantAfrikContext();
         private readonly ILogger<CustomersController> logger;
-        public CustomersController(RestaurantAfrikContext context)
+
+      
+        public CustomersController(ICustomerRepo context)
         {
-            _context = context;
-            this.logger = logger;
+            
+            _customerRepo = context;
+            //this.logger = logger;
         }
-        //public IActionResult Search();
+        public IActionResult SearchCust(string firstName, string lastName)
+        {
+            return View("Index",_customerRepo.SearchCust(firstName, lastName));
+        }
+
+
+        
+        /*public async Task <IActionResult> Search(string firstName)
+        {
+            logger.LogInformation($"Searching for cust {1} {2}", SearchfirstName);
+            return View(_context.SearchCust(1, SearchFirstName));
+        }*/
 
 
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            return View(await _customerRepo.GetCusts());
         }
 
         // GET: Customers/Details/5
@@ -59,8 +76,8 @@ namespace brendan_project1.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customers);
-                await _context.SaveChangesAsync();
+
+                _customerRepo.Add(customers);
                 return RedirectToAction(nameof(Index));
             }
             return View(customers);
@@ -75,6 +92,7 @@ namespace brendan_project1.Controllers
             }
 
             var customers = await _context.Customers.FindAsync(id);
+            //var customers = _context.FindById(Convert.ToUInt32(id));
             if (customers == null)
             {
                 return NotFound();

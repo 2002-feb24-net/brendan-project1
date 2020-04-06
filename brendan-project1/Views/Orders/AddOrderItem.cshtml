@@ -1,0 +1,37 @@
+﻿@model brendan_project1.Models.OrderViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Add Order Item:</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="orders.FoodId" class="control-label"></label>
+                <select asp-for="orders.FoodId" class="form-control" asp-items="ViewBag.FoodId" name="productId"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Quantity</label>
+                <input class="form-control" name="quantity" type="number" min="0" />
+            </div>
+            <div class="form-group">
+                <input asp-action="AddOrderItem" type="submit" value="Add another item" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                <input asp-action="Submit" type="submit" value="Submit Order" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

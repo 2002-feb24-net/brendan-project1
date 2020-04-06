@@ -69,5 +69,6 @@ namespace brendan_project1.Domain.Interfaces
         /// </param>
         /// <returns></returns>
         Task<List<Orders>> GetOrders(int mode = 0, params string[] search_param);
+        IEnumerable<Customers> SearchOrders(params string[] search_param);
     }
 }

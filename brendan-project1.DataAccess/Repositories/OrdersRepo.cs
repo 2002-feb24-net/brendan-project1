@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace brendan_project1.DataAccess.Repositories
 {
-    class OrdersRepo : IOrdersRepo
+    public class OrdersRepo : IOrdersRepo
     {
         readonly RestaurantAfrikContext context = new RestaurantAfrikContext();
         public void AddOrderItem(Foods food)
@@ -129,5 +129,18 @@ namespace brendan_project1.DataAccess.Repositories
                         .Include("OrderFoods.F.F")
                         .ToListAsync();
         }
+
+        public IEnumerable<Orders> SearchOrders(params string[] search_param)
+        {
+            return context.Orders.Where(o => o.Customer.FirstName == search_param[0] && o.Customer.LastName == search_param[1]).ToList();
+        }
+
+        IEnumerable<Customers> IOrdersRepo.SearchOrders(params string[] search_param)
+        {
+            throw new NotImplementedException();
+        }
+        /*   public IEnumerable<Orders> Searchorders(params string[] search_param)*/
+
+
     }
 }

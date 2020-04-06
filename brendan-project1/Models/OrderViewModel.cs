@@ -7,7 +7,8 @@ namespace brendan_project1.Models
 {
     public class OrderViewModel
     {
-        public List<Inventory> Inventory { get; set; }
-        public Foods Item { get; set; }
+        public List<Foods> Inventory { get; set; }
+        public Orders orders { get; set; }
+     
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace brendan_project1.DataAccess.Repositories
 {
-    class StoreLocRepo : IStoreLocRepo
+    public class StoreLocRepo : IStoreLocRepo
     {
         private readonly RestaurantAfrikContext context = new RestaurantAfrikContext();
         public IEnumerable<StoreLoc> GetStoreLocs()

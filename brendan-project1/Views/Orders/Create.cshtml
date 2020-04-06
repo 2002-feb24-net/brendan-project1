@@ -1,11 +1,41 @@
-﻿@model brendan_project1.Orders
+﻿@model brendan_project1.Models.OrderViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
+<h1>Start Order:</h1>
 
+<h4>Customer Info</h4>
 <h1>Create</h1>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory.First().Price)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Inventory)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+               
+              
+            </tr>
+        }
+    </tbody>
+</table>
 <h4>Orders</h4>
 <hr />
 <div class="row">
@@ -13,35 +43,25 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FoodId" class="control-label"></label>
-                <input asp-for="FoodId" class="form-control" />
-                <span asp-validation-for="FoodId" class="text-danger"></span>
+
+                <label asp-for="orders.FoodId" class="control-label"></label>
+                <select asp-for="orders.FoodId" class="form-control" asp-items="ViewBag.FoodId" name="foodid"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="orders.StoreId" class="control-label"></label>
+                <select asp-for="orders.StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="orders.CustomerId" class="control-label"> Customer Name</label>
+                <select asp-for="orders.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+          
+            <div class="form-group">
+                <label class="control-label">Quantity</label>
+                <input class="form-control" name="quantity" type="number" min="0"/>
             </div>
             <div class="form-group">
-                <label asp-for="OrderTime" class="control-label"></label>
-                <input asp-for="OrderTime" class="form-control" />
-                <span asp-validation-for="OrderTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class ="form-control" asp-items="ViewBag.StoreId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Start Order" class="btn btn-primary" />
             </div>
         </form>
     </div>

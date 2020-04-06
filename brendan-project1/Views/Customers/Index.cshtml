@@ -5,7 +5,15 @@
 }
 
 <h1>Index</h1>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+</head>
+<form asp-action="SearchCust">
+    <input name ="firstName"type ="text" />
+    <input name ="lastName"type ="text" />
+    <input type ="submit"value ="Search" />
 
+</form>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
