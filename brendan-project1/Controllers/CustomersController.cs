@@ -15,10 +15,11 @@ namespace brendan_project1.Controllers
     public class CustomersController : Controller
     {
         private readonly ICustomerRepo _customerRepo;
-        private readonly RestaurantAfrikContext _context=new RestaurantAfrikContext();
+        private readonly RestaurantAfrikContext _context = new RestaurantAfrikContext();
         private readonly ILogger<CustomersController> logger;
+        private readonly RestaurantAfrikContext ctx;
 
-      
+
         public CustomersController(ICustomerRepo context)
         {
             
@@ -27,11 +28,13 @@ namespace brendan_project1.Controllers
         }
         public IActionResult SearchCust(string firstName, string lastName)
         {
-            return View("Index",_customerRepo.SearchCust(firstName, lastName));
+            
+
+            return View("Index", _customerRepo.SearchCust(firstName, lastName));
         }
 
 
-        
+
         /*public async Task <IActionResult> Search(string firstName)
         {
             logger.LogInformation($"Searching for cust {1} {2}", SearchfirstName);

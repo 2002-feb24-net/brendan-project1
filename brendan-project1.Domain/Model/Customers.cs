@@ -26,10 +26,10 @@ namespace brendan_project1
         [DataType(DataType.MultilineText)]
         //[MaxWordAttributes(50)]
         public string Address { get; set; }
-       /* [Required(ErrorMessage = "Phone Number Required")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter PhoneNumber as 0123456789, 012-345-6789, (012)-345-6789.")]*/
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone number (10 digits)")]
         public string Phone { get; set; }
-        //[Required]
+        //[Required(ErrorMessage = "City number is required")]
   
         public string City { get; set; }
         public string State { get; set; }

@@ -22,9 +22,19 @@ namespace brendan_project1.Controllers
         {
             _context = context;
         }
-        public IActionResult Searchorders(string firstName, string lastName)
+        public IActionResult Searchorders(string search)
         {
-            return View("Index", _ordersRepo.SearchOrders(firstName, lastName));
+            /*       return View("Index", _ordersRepo.SearchOrders(firstName, lastName));*/
+
+            var orderSearch = from c in _context.Orders
+                              where c.Customer.FirstName == search || c.Customer.LastName == search
+                              select c;
+
+            if (search != null)
+            {
+                orderSearch = orderSearch.Where(s => s.Customer.FirstName.ToUpper().Contains(search) || s.Customer.LastName.ToUpper().Contains(search));
+            }
+            return View(orderSearch);
         }
 
         //public async Task<IActionResult> SearchLocOrders(string LocName)

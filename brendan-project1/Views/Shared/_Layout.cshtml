@@ -17,24 +17,43 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <p>
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <style>
+                            .btn {
+                                background-color: #f44336;
+                                border: none;
+                                color: white;
+                                padding: 2px 4px;
+                                text-align: center;
+                                font-size: 16px;
+                                margin: 4px 2px;
+                                opacity: 0.8;
+                                transition: 0.3s;
+                            }
+                                .btn:hover {
+                                    opacity: 1
+                                }
+                        </style>
+                
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="btn" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="btn" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
+                            <a class="btn" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+                            <a class="btn" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="StoreLocs" asp-action="Index">Stores</a>
+                            <a class="btn" asp-area="" asp-controller="StoreLocs" asp-action="Index">Stores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Login</a>
+                            <a class="btn" asp-area="" asp-controller="Account" asp-action="Index">Login</a>
                         </li>
                     </ul>
                 </div>
